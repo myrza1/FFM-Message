@@ -1,0 +1,1781 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) by SHOCK (SHOCK) -->
+<xsd:schema xmlns:tns="http://sita.aero/schema/SitatexSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sita.aero/schema/SitatexSchema" elementFormDefault="unqualified">
+  <xsd:element name="SitatexMessage">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="mvt" type="tns:MVT"/>
+        <xsd:element name="ldm" type="tns:LDM"/>
+        <xsd:element name="bmm" type="tns:BMM"/>
+        <xsd:element name="btm" type="tns:BTM"/>
+        <xsd:element name="bsm" type="tns:BSM"/>
+        <xsd:element name="ptm" type="tns:PTM"/>
+        <xsd:element name="psm" type="tns:PSM"/>
+        <xsd:element name="cpm" type="tns:CPM"/>
+        <xsd:element name="ntm" type="tns:NTM"/>
+        <xsd:element name="ffm" type="tns:FFM"/>
+        <xsd:element name="ssm" type="tns:SSM"/>
+        <xsd:element name="asm" type="tns:ASM"/>
+        <xsd:element name="sls" type="tns:SLS"/>
+        <xsd:element name="div" type="tns:DIV"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:simpleType name="MessageType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="BMM"/>
+      <xsd:enumeration value="BTM"/>
+      <xsd:enumeration value="BSM"/>
+      <xsd:enumeration value="PTM"/>
+      <xsd:enumeration value="PSM"/>
+      <xsd:enumeration value="CPM"/>
+      <xsd:enumeration value="LDM"/>
+      <xsd:enumeration value="MVT"/>
+      <xsd:enumeration value="NTM"/>
+      <xsd:enumeration value="FFM"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Source">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="L"/>
+      <xsd:enumeration value="T"/>
+      <xsd:enumeration value="X"/>
+      <xsd:enumeration value="R"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ChangeIndicator">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="CHG"/>
+      <xsd:enumeration value="DEL"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="Version">
+    <xsd:all>
+      <xsd:element name="source" type="tns:Source"/>
+      <xsd:element name="airport" type="tns:Airport"/>
+      <xsd:element name="reference" type="xsd:string"/>
+      <xsd:element name="part" type="xsd:string"/>
+      <xsd:element name="final" type="xsd:boolean"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="BMM">
+    <xsd:annotation>
+      <xsd:documentation>PSCRM p1078-1084</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="version" type="tns:Version">
+        <xsd:annotation>
+          <xsd:documentation>Element .V</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="flight" type="tns:Flight">
+        <xsd:annotation>
+          <xsd:documentation>Element .I </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="loadingData" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+            Element .U
+            or implicit
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="typeOfBaggage" minOccurs="0">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="M"/>
+                  <xsd:enumeration value="T"/>
+                  <xsd:enumeration value="S"/>
+                  <xsd:enumeration value="X"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="destination" type="tns:Airport" minOccurs="0"/>
+            <xsd:element name="connection" type="tns:Flight" minOccurs="0"/>
+            <xsd:element name="outbound" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Element .F
+                  or implicit
+                </xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="flight" type="tns:Flight2" minOccurs="0">
+                    <xsd:annotation>
+                      <xsd:documentation>Element .F</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="handling" minOccurs="0">
+                    <xsd:annotation>
+                      <xsd:documentation>Element .H</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:all>
+                        <xsd:element name="terminal" type="xsd:string"/>
+                        <xsd:element name="bay" type="xsd:string"/>
+                        <xsd:element name="gate" type="xsd:string"/>
+                      </xsd:all>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="bags" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                      <xsd:documentation>Element .N</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="bagTagNumber" type="xsd:positiveInteger"/>
+                        <xsd:element name="numberOfTags" type="xsd:positiveInteger"/>
+                        <xsd:element name="data" minOccurs="0">
+                          <xsd:annotation>
+                            <xsd:documentation>Element .W</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:complexType>
+                            <xsd:all>
+                              <xsd:element name="indicator">
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:string">
+                                    <xsd:enumeration value="L"/>
+                                    <xsd:enumeration value="K"/>
+                                    <xsd:enumeration value="P"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                              <xsd:element name="checkedBags" type="xsd:positiveInteger"/>
+                              <xsd:element name="checkedWeight" type="xsd:positiveInteger"/>
+                              <xsd:element name="uncheckedWeight" type="xsd:positiveInteger"/>
+                            </xsd:all>
+                          </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="onwardFlight" type="tns:Flight2" minOccurs="0" maxOccurs="unbounded">
+                          <xsd:annotation>
+                            <xsd:documentation>Element .O</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="passenger" type="xsd:string" minOccurs="0">
+                          <xsd:annotation>
+                            <xsd:documentation>Element .P</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="Airport">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="3"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="FlightNumber">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="10"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="FlightDate">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="5"/>
+      <xsd:maxLength value="5"/>
+      <xsd:pattern value="\d{2}\w{3}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="Flight">
+    <xsd:all>
+      <xsd:element name="flightNumber" type="tns:FlightNumber"/>
+      <xsd:element name="date" type="tns:FlightDate"/>
+      <xsd:element name="airport" type="tns:Airport"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="Flight2">
+    <xsd:all>
+      <xsd:element name="flightNumber" type="tns:FlightNumber"/>
+      <xsd:element name="date" type="tns:FlightDate"/>
+      <xsd:element name="airport" type="tns:Airport"/>
+      <xsd:element name="class" type="xsd:string"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="PTMFlight">
+    <xsd:sequence>
+      <xsd:element name="flightNumber" type="tns:FlightNumber"/>
+      <xsd:element name="date" type="tns:FlightDate"/>
+      <xsd:element name="boardingAirport" type="tns:Airport"/>
+      <xsd:element name="transferAirport" type="tns:Airport" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PTMHeader">
+    <xsd:all>
+      <xsd:element name="address" type="xsd:string"/>
+      <xsd:element name="communicationsRef" type="xsd:string"/>
+      <xsd:element name="part" type="xsd:string"/>
+      <xsd:element name="final" type="xsd:boolean"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="BTM">
+    <xsd:annotation>
+      <xsd:documentation>PSCRM p1044-1050</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="change" type="tns:ChangeIndicator" minOccurs="0"/>
+      <xsd:element name="version" type="tns:Version"/>
+      <xsd:element name="flight" type="tns:Flight2"/>
+      <xsd:element name="outbound" minOccurs="0" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="flight" type="tns:Flight2"/>
+            <xsd:element name="bags" minOccurs="0" maxOccurs="unbounded">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="bagTagNumber" type="xsd:positiveInteger"/>
+                  <xsd:element name="numberOfTags" type="xsd:positiveInteger"/>
+                  <xsd:element name="data" minOccurs="0">
+                    <xsd:complexType>
+                      <xsd:all>
+                        <xsd:element name="indicator">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="L"/>
+                              <xsd:enumeration value="K"/>
+                              <xsd:enumeration value="P"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="checkedBags" type="xsd:positiveInteger"/>
+                        <xsd:element name="checkedWeight" type="xsd:positiveInteger"/>
+                        <xsd:element name="uncheckedWeight" type="xsd:positiveInteger"/>
+                      </xsd:all>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="onwardFlight" type="tns:Flight2" minOccurs="0" maxOccurs="unbounded"/>
+                  <xsd:element name="passenger" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="BSM">
+    <xsd:annotation>
+      <xsd:documentation>PSCRM p1051-1057</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="change" type="tns:ChangeIndicator" minOccurs="0"/>
+      <xsd:element name="version" type="tns:Version">
+        <xsd:annotation>
+          <xsd:documentation>Element .V</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="outbound" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element .F</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="flight" type="tns:Flight2"/>
+            <xsd:element name="inbound" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Element .I
+                  or implicit
+                </xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="flight" type="tns:Flight2" minOccurs="0"/>
+                  <xsd:element name="onward">
+                    <xsd:annotation>
+                      <xsd:documentation>
+                        Element .O
+                        or implicit
+                      </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="flight" type="tns:Flight2" minOccurs="0"/>
+                        <xsd:element name="bags" minOccurs="0" maxOccurs="unbounded">
+                          <xsd:annotation>
+                            <xsd:documentation>Element .N</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="bagTagNumber" type="xsd:positiveInteger"/>
+                              <xsd:element name="numberOfTags" type="xsd:positiveInteger"/>
+                              <xsd:element name="data" minOccurs="0">
+                                <xsd:annotation>
+                                  <xsd:documentation>Element .W</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                  <xsd:all>
+                                    <xsd:element name="indicator">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:enumeration value="L"/>
+                                          <xsd:enumeration value="K"/>
+                                          <xsd:enumeration value="P"/>
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="checkedBags" type="xsd:positiveInteger"/>
+                                    <xsd:element name="checkedWeight" type="xsd:positiveInteger"/>
+                                    <xsd:element name="uncheckedWeight" type="xsd:positiveInteger"/>
+                                  </xsd:all>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element name="passenger" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PTM">
+    <xsd:annotation>
+      <xsd:documentation>
+        PSCRM
+        RP 1718
+        p885-888
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="header" type="tns:PTMHeader">
+        <xsd:annotation>
+          <xsd:documentation>
+            Elements
+            2.1 - 2.3
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="flight" type="tns:PTMFlight">
+        <xsd:annotation>
+          <xsd:documentation>Element 2.4</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="data" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+            Elements
+            2.5 - 2.7
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="connectingFlight" type="tns:FlightNumber"/>
+            <xsd:element name="dayOfMonth" type="tns:DayOfMonth" minOccurs="0"/>
+            <xsd:element name="destination" type="tns:Airport"/>
+            <xsd:element name="seats" type="xsd:positiveInteger"/>
+            <xsd:element name="fareClass" type="xsd:string"/>
+            <xsd:element name="bags" type="xsd:positiveInteger"/>
+            <xsd:element name="weight" type="xsd:positiveInteger" minOccurs="0"/>
+            <xsd:element name="indicator" minOccurs="0">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="L"/>
+                  <xsd:enumeration value="K"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="passenger" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="children" type="xsd:positiveInteger" minOccurs="0"/>
+            <xsd:element name="infants" type="xsd:positiveInteger" minOccurs="0"/>
+            <xsd:element name="reservationStatus" minOccurs="0">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="RQ"/>
+                  <xsd:enumeration value="SA"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="ServiceCode">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="3"/>
+      <xsd:maxLength value="4"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PSM">
+    <xsd:annotation>
+      <xsd:documentation>
+        PSCRM
+        RP 1715
+        p873-878
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="header" type="tns:PTMHeader">
+        <xsd:annotation>
+          <xsd:documentation>
+            Elements
+            2.1 - 2.2
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="flight" type="tns:Flight">
+        <xsd:annotation>
+          <xsd:documentation>
+            Element
+            2.4
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="destination" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element 2.5</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="airport" type="tns:Airport"/>
+            <xsd:element name="passengerCount" type="xsd:positiveInteger"/>
+            <xsd:element name="serviceCount" type="xsd:positiveInteger"/>
+            <xsd:element name="service" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:documentation>Element 2.6</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="code" type="tns:ServiceCode"/>
+                  <xsd:element name="count" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="number" type="xsd:positiveInteger"/>
+                        <xsd:element name="compartment" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="compartment" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Element 2.7
+                  Compartment-specific information
+                  may not be necessary if we can
+                  extract the necessary loads from
+                  the service element.
+                </xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="class" type="xsd:string"/>
+                  <xsd:element name="passengerCount" type="xsd:positiveInteger"/>
+                  <xsd:element name="serviceCount" type="xsd:positiveInteger"/>
+                  <xsd:element name="passenger" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                      <xsd:documentation>Element 2.8</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="lastname" type="xsd:string"/>
+                        <xsd:element name="firstname" type="xsd:string"/>
+                        <xsd:element name="seat" type="xsd:string"/>
+                        <xsd:element name="service" type="tns:ServiceCode" minOccurs="0" maxOccurs="unbounded">
+                          <xsd:annotation>
+                            <xsd:documentation>Element 2.10</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="supplementary" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CPM">
+    <xsd:annotation>
+      <xsd:documentation>AHM 587 p434</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="flight" type="tns:FlightNumber"/>
+      <xsd:element name="dayOfMonth" type="tns:DayOfMonth" minOccurs="0"/>
+      <xsd:element name="aircraftRegistration" type="tns:AircraftRegistration"/>
+      <xsd:element name="load" minOccurs="0" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="position" type="xsd:string"/>
+            <xsd:element name="type" type="xsd:string"/>
+            <xsd:element name="destination" type="tns:Airport"/>
+            <xsd:element name="weight" type="xsd:positiveInteger"/>
+            <xsd:element name="category" type="xsd:string" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="DayOfMonth">
+    <xsd:restriction base="xsd:positiveInteger">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="31"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="AircraftRegistration">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="2"/>
+      <xsd:maxLength value="10"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="MaleFemaleCounts">
+    <xsd:choice>
+      <xsd:element name="combined" type="xsd:positiveInteger"/>
+      <xsd:element name="split">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="male" type="xsd:positiveInteger"/>
+            <xsd:element name="female" type="xsd:positiveInteger"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:complexType name="LDM">
+    <xsd:annotation>
+      <xsd:documentation>AHM 583</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="flight" type="tns:FlightNumber"/>
+      <xsd:element name="dayOfMonth" type="tns:DayOfMonth"/>
+      <xsd:element name="aircraftRegistration" type="tns:AircraftRegistration"/>
+      <xsd:element name="crew">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 5</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="cockpit" type="xsd:positiveInteger"/>
+            <xsd:element name="cabin" type="tns:MaleFemaleCounts"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="destination" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 6</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="airport" type="tns:Airport"/>
+            <xsd:element name="load" minOccurs="0">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element name="cargo">
+                    <xsd:annotation>
+                      <xsd:documentation>Part 3B</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="totalDeadLoad" type="xsd:positiveInteger"/>
+                        <xsd:element name="compartment" maxOccurs="unbounded">
+                          <xsd:complexType>
+                            <xsd:all>
+                              <xsd:element name="code" type="xsd:string"/>
+                              <xsd:element name="weight" type="xsd:positiveInteger"/>
+                            </xsd:all>
+                          </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="b" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="c" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="e" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="m" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="freightWeight" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="mailWeight" type="xsd:string" minOccurs="0"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="passenger">
+                    <xsd:annotation>
+                      <xsd:documentation>Part 3A</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="adults" type="tns:MaleFemaleCounts">
+                          <xsd:annotation>
+                            <xsd:documentation>Element No. 8</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="children" type="xsd:positiveInteger"/>
+                        <xsd:element name="infants" type="xsd:positiveInteger"/>
+                        <xsd:element name="cabinBaggageWeight" type="xsd:positiveInteger" minOccurs="0"/>
+                        <xsd:element name="totalDeadLoad" type="xsd:positiveInteger"/>
+                        <xsd:element name="compartment" maxOccurs="unbounded">
+                          <xsd:complexType>
+                            <xsd:all>
+                              <xsd:element name="code" type="xsd:string"/>
+                              <xsd:element name="weight" type="xsd:positiveInteger"/>
+                            </xsd:all>
+                          </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="pax" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbounded">
+                          <xsd:annotation>
+                            <xsd:documentation>Passengers per class, including PADs</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="pad" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbounded">
+                          <xsd:annotation>
+                            <xsd:documentation>Passengers available for disembarkation per class</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="b" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="c" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="e" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="m" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="freightWeight" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="mailWeight" type="xsd:string" minOccurs="0"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="supplementary" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 14</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="netWeight" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 14.1</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="airport" type="tns:Airport"/>
+            <xsd:element name="baggage" type="xsd:positiveInteger"/>
+            <xsd:element name="cargo" type="xsd:positiveInteger"/>
+            <xsd:element name="mail" type="xsd:positiveInteger"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="aircraftVersion" minOccurs="0"/>
+      <xsd:element name="aircraftVersionInformation" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence minOccurs="0">
+            <xsd:element name="aircraftVersionSeatsFirst" minOccurs="0"/>
+            <xsd:element name="aircraftVersionSeatsBusiness" minOccurs="0"/>
+            <xsd:element name="aircraftVersionSeatsEconomy" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="EventType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Departure"/>
+      <xsd:enumeration value="Arrival"/>
+      <xsd:enumeration value="Delay"/>
+      <xsd:enumeration value="DelayedTakeOff"/>
+      <xsd:enumeration value="ReturnToRamp"/>
+      <xsd:enumeration value="ReturnFromAirborne"/>
+      <xsd:enumeration value="RevisedETA"/>
+      <xsd:enumeration value="ArrivalTaxiTime"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="EventTime">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="4"/>
+      <xsd:maxLength value="4"/>
+      <xsd:pattern value="\d{4}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="EventDateTime">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="4"/>
+      <xsd:maxLength value="6"/>
+      <xsd:pattern value="\d{4}|\d{6}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="DelayInfo">
+    <xsd:all>
+      <xsd:element name="code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="2"/>
+            <xsd:maxLength value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="hours" type="xsd:positiveInteger"/>
+      <xsd:element name="minutes" type="xsd:positiveInteger"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="MVTDeparture">
+    <xsd:annotation>
+      <xsd:documentation>Part 3A</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="offBlockTime" type="tns:EventDateTime"/>
+      <xsd:element name="airborneTime" type="tns:EventDateTime" minOccurs="0"/>
+      <xsd:element name="eta" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 6</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="time" type="tns:EventTime"/>
+            <xsd:element name="destination" type="tns:Airport"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="delay" type="tns:DelayInfo" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 7</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="passengers" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="estimatedOnBlockTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+      <xsd:element name="extraDelay" type="tns:DelayInfo" minOccurs="0" maxOccurs="2">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 8.4</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="takeOffFuel" type="xsd:positiveInteger" minOccurs="0"/>
+      <xsd:element name="takeOffWeight" type="xsd:positiveInteger" minOccurs="0"/>
+      <xsd:element name="zeroFuelWeight" type="xsd:positiveInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTArrival">
+    <xsd:annotation>
+      <xsd:documentation>Part 3B</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="touchDownTime" type="tns:EventDateTime" minOccurs="0"/>
+      <xsd:element name="onBlockTime" type="tns:EventDateTime" minOccurs="0"/>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTDelay">
+    <xsd:annotation>
+      <xsd:documentation>Part 3C</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="etd" type="tns:EventDateTime"/>
+      <xsd:element name="indefiniteDelay" type="xsd:boolean" default="false"/>
+      <xsd:element name="delayCode" minOccurs="0" maxOccurs="2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+      <xsd:element name="extraDelayCode" minOccurs="0" maxOccurs="2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTDelayedTakeOff">
+    <xsd:annotation>
+      <xsd:documentation>Part 3D</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="offBlockTime" type="tns:EventDateTime"/>
+      <xsd:element name="estimatedTakeOffTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="eta" minOccurs="0">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="time" type="tns:EventTime"/>
+            <xsd:element name="destination" type="tns:Airport"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="delay" type="tns:DelayInfo" minOccurs="0" maxOccurs="2"/>
+      <xsd:element name="passengers" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 16.1: Seats occupied per destination</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="estimatedOnBlockTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTReturnToRamp">
+    <xsd:annotation>
+      <xsd:documentation>Part 3E</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="offBlockTime" type="tns:EventDateTime"/>
+      <xsd:element name="returnToRampTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="delayCode" minOccurs="0" maxOccurs="2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="estimatedOnBlockTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTReturnFromAirborne">
+    <xsd:annotation>
+      <xsd:documentation>Part 3F</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="touchDownTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="onBlockTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="eta" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="estimatedOnBlockTime" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTRevisedETA">
+    <xsd:annotation>
+      <xsd:documentation>Part 3G</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="eta" type="tns:EventTime"/>
+      <xsd:element name="estimatedOnBlockTime" type="tns:EventTime" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVTArrivalTaxiTime">
+    <xsd:annotation>
+      <xsd:documentation>Part 3H</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="touchDownTime" type="tns:EventTime"/>
+      <xsd:element name="estimatedOnBlockTime" type="tns:EventTime"/>
+      <xsd:element name="flightLegDate" type="xsd:positiveInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="events">
+    <xsd:annotation>
+      <xsd:documentation>for MVT</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence maxOccurs="unbounded">
+      <xsd:element name="etd" type="tns:EventDateTime" minOccurs="0"/>
+      <xsd:element name="eta" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="atd" type="tns:EventDateTime" minOccurs="0"/>
+      <xsd:element name="ata" type="tns:EventTime" minOccurs="0"/>
+      <xsd:element name="offBlockTime" type="tns:EventDateTime" minOccurs="0"/>
+      <xsd:element name="onBlockTime" type="tns:EventTime" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="MVT">
+    <xsd:annotation>
+      <xsd:documentation>AHM 780</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="flightNumber" type="tns:FlightNumber"/>
+      <xsd:element name="dayOfMonth" type="tns:DayOfMonth"/>
+      <xsd:element name="aircraftRegistration" type="tns:AircraftRegistration"/>
+      <xsd:element name="airport" type="tns:Airport"/>
+      <xsd:element name="supplementary" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Any other information pertaining to aircraft movement e.g. delay reaons in plain language or other company requirements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:choice>
+        <xsd:element name="event">
+          <xsd:annotation>
+            <xsd:documentation>
+              Part 3A, 3D and 3E are all departure messages so could be refactored (e.g. combined into one element) to have shared offBlockTime and estimatedOnBlockTime elements.
+
+              Part 3B and 3H are arrival messages so could be refactored to have a shared onBlockTime field.
+
+              Some other fields are also shared between different events e.g. eta, flightLegDate etc.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element name="departure" type="tns:MVTDeparture">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3A</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="arrival" type="tns:MVTArrival">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3B</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="delay" type="tns:MVTDelay">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3C</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="delayedTakeOff" type="tns:MVTDelayedTakeOff">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3D</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="returnToRamp" type="tns:MVTReturnToRamp">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3E</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="returnFromAirborne" type="tns:MVTReturnFromAirborne">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3F</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="revisedETA">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3G</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:complexContent>
+                    <xsd:extension base="tns:MVTRevisedETA"/>
+                  </xsd:complexContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="arrivalTaxiTime" type="tns:MVTArrivalTaxiTime">
+                <xsd:annotation>
+                  <xsd:documentation>Part 3H</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:choice>
+            <xsd:attribute name="type" type="tns:EventType" default="Departure"/>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="events" type="tns:events">
+          <xsd:annotation>
+            <xsd:documentation>One or more events carried by MVT</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="NTM">
+    <xsd:annotation>
+      <xsd:documentation>
+        AHM 384
+        p193
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="flight" type="tns:Flight"/>
+      <xsd:element name="part" type="xsd:positiveInteger"/>
+      <xsd:element name="final" type="xsd:boolean" default="true"/>
+      <xsd:element name="identification" type="xsd:positiveInteger"/>
+      <xsd:element name="aircraftRegistration" type="tns:AircraftRegistration" minOccurs="0"/>
+      <xsd:element name="container" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Element No. 3.1</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="destination" type="tns:Airport">
+              <xsd:annotation>
+                <xsd:documentation>Element No. 3.2</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="uldCode">
+              <xsd:annotation>
+                <xsd:documentation>Element No. 3.3</xsd:documentation>
+              </xsd:annotation>
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="1"/>
+                  <xsd:maxLength value="9"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="load" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Element No. 3.5
+
+                  We only need the number of goods for each container.
+                </xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="awb">
+                    <xsd:annotation>
+                      <xsd:documentation>Element No. 3.5.4</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:length value="8"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="shippingName" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation>Element No. 3.5.7.1</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="pieces"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="FFM">
+    <xsd:annotation>
+      <xsd:documentation>
+        Reference:
+        Cargo Interchange
+        Message Procedures
+        Manual
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="part" type="xsd:positiveInteger"/>
+      <xsd:element name="final" type="xsd:boolean"/>
+      <xsd:element name="flight" type="tns:Flight"/>
+      <xsd:element name="aircraftRegistration" type="tns:AircraftRegistration" minOccurs="0"/>
+      <xsd:element name="destrination" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="airport" type="tns:Airport"/>
+            <xsd:element name="container" minOccurs="0" maxOccurs="unbounded">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="uldCode" type="xsd:string"/>
+                  <xsd:element name="load" maxOccurs="unbounded">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="awbSerialNumber">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:length value="8"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="origin" type="tns:Airport"/>
+                        <xsd:element name="destination" type="tns:Airport"/>
+                        <xsd:element name="shipmentDescriptionCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:length value="1"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="pieces" type="xsd:positiveInteger"/>
+                        <xsd:element name="weightCode" type="xsd:string"/>
+                        <xsd:element name="weight" type="xsd:positiveInteger"/>
+                        <xsd:element name="manifestDescription">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="15"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="specialHandlingCode" type="xsd:string" maxOccurs="2"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DEI9">
+    <xsd:annotation>
+      <xsd:documentation>SharedAirline or Wet Lease</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AirlineCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DEI5">
+    <xsd:annotation>
+      <xsd:documentation>Cabin Crew Employer</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AirlineCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DEI4">
+    <xsd:annotation>
+      <xsd:documentation>Cockpit Crew Owner</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AirlineCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DEI3">
+    <xsd:annotation>
+      <xsd:documentation>AircraftOwner</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AirlineCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DEI2">
+    <xsd:annotation>
+      <xsd:documentation>Codeshare duplicate</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AirlineCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DEI1">
+    <xsd:annotation>
+      <xsd:documentation>SSM Joint Operation Airline</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AirlineCode" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSM">
+    <xsd:annotation>
+      <xsd:documentation>Reference: SSIM-2008-18: Season Schedule Message, p. 125</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeMode" minOccurs="0"/>
+      <xsd:element name="Supplementary " minOccurs="0"/>
+      <xsd:sequence maxOccurs="unbounded">
+        <xsd:element name="NEW" type="tns:SSMNEW"/>
+        <xsd:element name="CNL" type="tns:SSMCNL"/>
+        <xsd:element name="RPL" type="tns:SSMRPL"/>
+        <xsd:element name="SKD" type="tns:SSMSKD"/>
+        <xsd:element name="ADM" type="tns:SSMADM"/>
+        <xsd:element name="CON" type="tns:SSMCON"/>
+        <xsd:element name="EQT" type="tns:SSMEQT"/>
+        <xsd:element name="FLT" type="tns:SSMFLT"/>
+        <xsd:element name="REV" type="tns:SSMREV"/>
+        <xsd:element name="TIM" type="tns:SSMTIM"/>
+      </xsd:sequence>
+    </xsd:sequence>
+    <xsd:attribute name="ActionIdentifier" use="required"/>
+    <xsd:attribute name="WithdrawalIndicator"/>
+  </xsd:complexType>
+  <xsd:complexType name="ASM">
+    <xsd:annotation>
+      <xsd:documentation>Reference: SSIM-2008-18: Adhoc Schedule Message, p. 183</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeMode" minOccurs="0"/>
+      <xsd:choice>
+        <xsd:element name="NEW" type="tns:ASMNEW"/>
+        <xsd:element name="CNL" type="tns:ASMCNL"/>
+        <xsd:element name="RPL" type="tns:ASMRPL"/>
+        <xsd:element name="ADM" type="tns:ASMADM"/>
+        <xsd:element name="CON" type="tns:ASMCON"/>
+        <xsd:element name="EQT" type="tns:ASMEQT"/>
+        <xsd:element name="FLT" type="tns:SSMFLT"/>
+        <xsd:element name="TIM" type="tns:SSMTIM"/>
+      </xsd:choice>
+      <xsd:element name="Supplementary " minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="ActionIdentifier" use="required"/>
+    <xsd:attribute name="WithdrawalIndicator"/>
+  </xsd:complexType>
+  <xsd:complexType name="SSMNEW">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Insertion of flight information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMNEW">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Insertion of flight information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMCNL">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Cancellation</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMCNL">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Cancellation</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMRPL">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Replacement of existing flight information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMRPL">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Replacement of existing flight information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMSKD">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Schedule update</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightNumber"/>
+      <xsd:element name="ValidityEffectiveDate"/>
+      <xsd:element name="ValidityDiscontinueDate" minOccurs="0"/>
+      <xsd:element name="DaysOfOperation" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMADM">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of existing information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMADM">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of existing information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMCON">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of aircraft configuration</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMCON">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of aircraft configuration</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMEQT">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of equipment</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMEQT">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of equipment</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="Equipment" type="tns:SSMEquipmentType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMFLT">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of flight designator</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="NewFlightNumber">
+        <xsd:complexType/>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMFLT">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of flight designator</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+      <xsd:element name="NewFlightNumber">
+        <xsd:complexType/>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMREV">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Revision of date or days of operation</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="RevisedPeriod">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NewFromDate"/>
+            <xsd:element name="NewToDate"/>
+            <xsd:element name="NewDaysOperation"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMTIM">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of time information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:SSMFlightInformation"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMTIM">
+    <xsd:annotation>
+      <xsd:documentation>SSM: Change of time information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMFlightInformation">
+    <xsd:sequence>
+      <xsd:element name="FlightNumber"/>
+      <xsd:element name="JointOperationAirlines" type="tns:DEI1" minOccurs="0"/>
+      <xsd:element name="CommecialDuplicate" type="tns:DEI2" minOccurs="0"/>
+      <xsd:element name="AircraftOwner" type="tns:DEI3" minOccurs="0"/>
+      <xsd:element name="CockpitCrewOwner" type="tns:DEI4" minOccurs="0"/>
+      <xsd:element name="CabinCrewOwner" type="tns:DEI5" minOccurs="0"/>
+      <xsd:element name="SharedAirline" type="tns:DEI9" minOccurs="0"/>
+      <xsd:element name="OnwardFlight" minOccurs="0"/>
+      <xsd:element name="OnwardDate" minOccurs="0"/>
+      <xsd:element name="Operation" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="OperationFromDate"/>
+            <xsd:element name="OperationToDate"/>
+            <xsd:element name="DaysOfOperation"/>
+            <xsd:element name="Frequency" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMFlightInformation">
+    <xsd:sequence>
+      <xsd:element name="FlightNumber"/>
+      <xsd:element name="JointOperationAirlines" type="tns:DEI1" minOccurs="0"/>
+      <xsd:element name="CommecialDuplicate" type="tns:DEI2" minOccurs="0"/>
+      <xsd:element name="AircraftOwner" type="tns:DEI3" minOccurs="0"/>
+      <xsd:element name="CockpitCrewOwner" type="tns:DEI4" minOccurs="0"/>
+      <xsd:element name="CabinCrewOwner" type="tns:DEI5" minOccurs="0"/>
+      <xsd:element name="Frequency" minOccurs="0"/>
+      <xsd:element name="SharedAirline" type="tns:DEI9" minOccurs="0"/>
+      <xsd:element name="Date" minOccurs="0"/>
+      <xsd:element name="OnwardFlight" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="OnwardDate" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMEquipmentType">
+    <xsd:sequence>
+      <xsd:element name="ServiceType"/>
+      <xsd:element name="AircraftType"/>
+      <xsd:element name="PassengerReservationsDesignator" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ReservationCode" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PassengerReservationModifier" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Reservationcode" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AircraftConfiguration" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ConfigurationCode" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AircraftRegistration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMRRT">
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+      <xsd:element name="Leg" type="tns:SSMLegType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ASMRIN">
+    <xsd:sequence>
+      <xsd:element name="FlightInformation" type="tns:ASMFlightInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ADL">
+    <xsd:sequence>
+
+      <xsd:element name="flight">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="flightNumber"/>
+            <xsd:element name="dayOfMonth"/>
+            <xsd:element name="month"/>
+            <xsd:element name="origin"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:sequence maxOccurs="unbounded">
+
+        <xsd:element name="destination">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="destinationAirport"/>
+              <xsd:element name="load"/>
+              <xsd:element name="class"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SCR">
+    <xsd:sequence>
+      <xsd:element name="scheduleSeason"/>
+      <xsd:element name="airport"/>
+      <xsd:sequence maxOccurs="unbounded">
+        <xsd:element name="actionCode" minOccurs="1" maxOccurs="1"/>
+        <xsd:element name="operationDates" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="period">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="start" minOccurs="1" maxOccurs="1">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="startDay" minOccurs="1" maxOccurs="1"/>
+                          <xsd:element name="startMonth" minOccurs="1" maxOccurs="1"/>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="end" minOccurs="1" maxOccurs="1">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="endDay" minOccurs="1" maxOccurs="1"/>
+                          <xsd:element name="endMonth" minOccurs="1" maxOccurs="1"/>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="days"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="aircraft" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="seats" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="aircraftType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="overnightIndicator" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="arrival" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="flightNumber" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="sto" minOccurs="0" maxOccurs="1"/>
+              <xsd:element name="route" minOccurs="1" maxOccurs="1">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="origin" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="previous" minOccurs="0" maxOccurs="1"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="serviceType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="departure" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="flightNumber" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="sto" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="route" minOccurs="1" maxOccurs="1">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="destination" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="next" minOccurs="0" maxOccurs="1"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="serviceType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SMA">
+    <xsd:sequence>
+      <xsd:element name="scheduleSeason"/>
+      <xsd:element name="airport"/>
+      <xsd:sequence maxOccurs="unbounded">
+        <xsd:element name="actionCode" minOccurs="1" maxOccurs="1"/>
+        <xsd:element name="operationDates" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="period">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="start" minOccurs="1" maxOccurs="1">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="startDay" minOccurs="1" maxOccurs="1"/>
+                          <xsd:element name="startMonth" minOccurs="1" maxOccurs="1"/>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="end" minOccurs="1" maxOccurs="1">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="endDay" minOccurs="1" maxOccurs="1"/>
+                          <xsd:element name="endMonth" minOccurs="1" maxOccurs="1"/>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="days"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="aircraft" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="seats" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="aircraftType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="overnightIndicator" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="arrival" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="flightNumber" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="sto" minOccurs="0" maxOccurs="1"/>
+              <xsd:element name="route" minOccurs="1" maxOccurs="1">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="origin" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="previous" minOccurs="0" maxOccurs="1"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="serviceType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="departure" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="flightNumber" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="sto" minOccurs="1" maxOccurs="1"/>
+              <xsd:element name="route" minOccurs="1" maxOccurs="1">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="destination" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="next" minOccurs="0" maxOccurs="1"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="serviceType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PNL">
+    <xsd:sequence>
+
+      <xsd:element name="flight">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="flightNumber"/>
+            <xsd:element name="dayOfMonth"/>
+            <xsd:element name="month"/>
+            <xsd:element name="origin"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:sequence maxOccurs="unbounded">
+
+        <xsd:element name="destination">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="destinationAirport"/>
+              <xsd:element name="load"/>
+              <xsd:element name="class"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:sequence maxOccurs="unbounded">
+          <xsd:element name="passengerDetails"/>
+        </xsd:sequence>
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DIV">
+    <xsd:sequence>
+      <xsd:element name="flight">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="flightNumber"/>
+            <xsd:element name="dayOfMonth" minOccurs="0"/>
+            <xsd:element name="aircraftRegistration"/>
+            <xsd:element name="originalDestination"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="diversion">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="etaDivertionAirport">
+              <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="airport"/>
+            <xsd:element name="reason" minOccurs="0"/>
+            <xsd:element name="pax" minOccurs="0"/>
+            <xsd:element name="eobl" minOccurs="0"/>
+            <xsd:element name="legDate" minOccurs="0"/>
+            <xsd:element name="termination" minOccurs="0"/>
+            <xsd:element name="continuation" minOccurs="0"/>
+            <xsd:element name="etd" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="supplimentary" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SLS">
+    <xsd:sequence>
+      <xsd:element name="flightNumber"/>
+      <xsd:element name="dayOfMonth" minOccurs="0"/>
+      <xsd:element name="aircraftRegistration"/>
+      <xsd:element name="aircraftType" minOccurs="0"/>
+      <xsd:element name="loadingStation"/>
+      <xsd:element name="localDate" minOccurs="0"/>
+      <xsd:element name="load" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="destinationAirport"/>
+            <xsd:element name="PAX" maxOccurs="unbounded">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="class"/>
+                  <xsd:element name="total"/>
+                  <xsd:element name="adults" minOccurs="0"/>
+                  <xsd:element name="children" minOccurs="0"/>
+                  <xsd:element name="female" minOccurs="0"/>
+                  <xsd:element name="male" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="nonRevenurePAX" maxOccurs="unbounded">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="class"/>
+                  <xsd:element name="total"/>
+                  <xsd:element name="adults" minOccurs="0"/>
+                  <xsd:element name="children" minOccurs="0"/>
+                  <xsd:element name="female" minOccurs="0"/>
+                  <xsd:element name="male" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="baggageWeight" minOccurs="0"/>
+            <xsd:element name="cargoWeight" minOccurs="0"/>
+            <xsd:element name="cargoWeightNonRevenue" minOccurs="0"/>
+            <xsd:element name="mailWeight" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SSMLegType">
+    <xsd:sequence>
+      <xsd:element name="DepartureAirport"/>
+      <xsd:element name="STD"/>
+      <xsd:element name="ArrivalAirport"/>
+      <xsd:element name="STA"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
+
+
+
+
