@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -40,7 +41,6 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -57,6 +57,11 @@
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox22 = new System.Windows.Forms.TextBox();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,14 +155,6 @@
             this.textBox8.Size = new System.Drawing.Size(100, 20);
             this.textBox8.TabIndex = 9;
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(369, 39);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(260, 74);
-            this.listView1.TabIndex = 10;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(12, 39);
@@ -216,51 +213,51 @@
             // 
             // textBox14
             // 
-            this.textBox14.Location = new System.Drawing.Point(65, 171);
+            this.textBox14.Location = new System.Drawing.Point(93, 171);
             this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(22, 20);
+            this.textBox14.Size = new System.Drawing.Size(28, 20);
             this.textBox14.TabIndex = 18;
             // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(93, 171);
+            this.textBox15.Location = new System.Drawing.Point(127, 171);
             this.textBox15.Name = "textBox15";
             this.textBox15.Size = new System.Drawing.Size(22, 20);
             this.textBox15.TabIndex = 19;
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(121, 171);
+            this.textBox16.Location = new System.Drawing.Point(155, 171);
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(32, 20);
             this.textBox16.TabIndex = 20;
             // 
             // textBox17
             // 
-            this.textBox17.Location = new System.Drawing.Point(159, 171);
+            this.textBox17.Location = new System.Drawing.Point(193, 171);
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(27, 20);
             this.textBox17.TabIndex = 21;
             // 
             // textBox18
             // 
-            this.textBox18.Location = new System.Drawing.Point(192, 171);
+            this.textBox18.Location = new System.Drawing.Point(226, 171);
             this.textBox18.Name = "textBox18";
             this.textBox18.Size = new System.Drawing.Size(51, 20);
             this.textBox18.TabIndex = 22;
             // 
             // textBox19
             // 
-            this.textBox19.Location = new System.Drawing.Point(249, 171);
+            this.textBox19.Location = new System.Drawing.Point(283, 171);
             this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(39, 20);
+            this.textBox19.Size = new System.Drawing.Size(50, 20);
             this.textBox19.TabIndex = 23;
             // 
             // textBox20
             // 
-            this.textBox20.Location = new System.Drawing.Point(294, 171);
+            this.textBox20.Location = new System.Drawing.Point(339, 198);
             this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(39, 20);
+            this.textBox20.Size = new System.Drawing.Size(290, 20);
             this.textBox20.TabIndex = 24;
             // 
             // textBox21
@@ -277,11 +274,87 @@
             this.textBox22.Size = new System.Drawing.Size(134, 20);
             this.textBox22.TabIndex = 26;
             // 
+            // textBox23
+            // 
+            this.textBox23.Location = new System.Drawing.Point(420, 146);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(100, 20);
+            this.textBox23.TabIndex = 27;
+            this.textBox23.Text = "T1K4.4MC0.12";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(339, 144);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 28;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(12, 224);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 29;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "Message RCV 2016/02/01 00:15:36",
+            "Message Text:",
+            " 237 000 311817 JAN 16",
+            "QD TSEAPXH",
+            ".CHACSPS PS/311817 SYSTEM",
+            "FFM/8",
+            "1/PS533/31JAN1930/KBP/URGAK",
+            "TSE",
+            "566-13186165AMSTSE/T3K100MC2.00/FRESH CUTFLOWER",
+            "/PER/PEF",
+            "COR/X",
+            "LAST",
+            "",
+            "Message RCV 2016/02/01 12:12:32",
+            "Message Text:",
+            " 096 000 010614 FEB 16",
+            "QD TASPLHY TSETOHY TSEAPXH TSEDBXH",
+            ".CHACSHY 010614 TAS219",
+            "FFM/8",
+            "1/HY721/01FEB1245/TAS/UK32020",
+            "TSE/NIL",
+            "LAST"});
+            this.listBox1.Location = new System.Drawing.Point(249, 39);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(380, 69);
+            this.listBox1.TabIndex = 30;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.Location = new System.Drawing.Point(93, 224);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(536, 96);
+            this.richTextBox1.TabIndex = 31;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 454);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.textBox23);
             this.Controls.Add(this.textBox22);
             this.Controls.Add(this.textBox21);
             this.Controls.Add(this.textBox20);
@@ -298,7 +371,6 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.textBox6);
@@ -332,7 +404,6 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Button button3;
@@ -349,6 +420,11 @@
         private System.Windows.Forms.TextBox textBox20;
         private System.Windows.Forms.TextBox textBox21;
         private System.Windows.Forms.TextBox textBox22;
+        private System.Windows.Forms.TextBox textBox23;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

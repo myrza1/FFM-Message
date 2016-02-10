@@ -120,4 +120,28 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>Message RCV 2016/02/01 00:15:36
+Message Text:
+ 237 000 311817 JAN 16
+QD TSEAPXH
+.CHACSPS PS/311817 SYSTEM
+FFM/8
+1/PS533/31JAN1930/KBP/URGAK
+TSE
+566-13186165AMSTSE/T3K100MC2.00/FRESH CUTFLOWER
+/PER/PEF
+COR/X
+LAST
+
+Message RCV 2016/02/01 12:12:32
+Message Text:
+ 096 000 010614 FEB 16
+QD TASPLHY TSETOHY TSEAPXH TSEDBXH
+.CHACSHY 010614 TAS219
+FFM/8
+1/HY721/01FEB1245/TAS/UK32020
+TSE/NIL
+LAST</value>
+  </data>
 </root>

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -119,18 +121,26 @@ namespace FFM_Message
             {
                 if (s.Trim() != "")
                 {
-                    if (ffME.ShipmentDescriptionCode == null & bir == 2)
+                    if (ffME.Goods == null & bir == 2)
                     {
-                        ffME.ShipmentDescriptionCode = s.Substring(0, 1);
+                        ffME.Goods = s;                        
                         bir = 3;
                     }
 
                     if (ffME.ShipmentDescriptionCode == null & bir == 1)
                     {
-                        ffME.ShipmentDescriptionCode = s.Substring(0, 1);
-                        allCharactersInStringAreDigits = s.Substring(2, 1).All(char.IsDigit);
-                        if (allCharactersInStringAreDigits) ffME.Pieces = s.Substring(1, 2); else ffME.Pieces = s.Substring(1, 1);
                         
+                        string[] w = SplitWords(s);
+                        foreach (string ss in w)
+                        {
+                            ffME.ShipmentDescriptionCode = w[1];
+                            ffME.Pieces = w[2];
+                            ffME.WeightCode = w[3];
+                            ffME.Weight = w[4];
+                            ffME.VolumeCode = w[5];
+                            ffME.Volume = w[6];
+                            Console.WriteLine(s);
+                        }
                         bir = 2;
                     }
 
@@ -153,7 +163,48 @@ namespace FFM_Message
             textBox13.Text = ffME.AwbDestination.ToString();
             textBox14.Text = ffME.ShipmentDescriptionCode.ToString();
             textBox15.Text = ffME.Pieces.ToString();
+            textBox16.Text = ffME.WeightCode.ToString();
+            textBox17.Text = ffME.Weight.ToString();
+            textBox18.Text = ffME.VolumeCode.ToString();
+            textBox19.Text = ffME.Volume.ToString();
+            textBox21.Text = ffME.Goods.ToString();
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string stinfff = textBox23.Text;
+            string[] w = SplitWords(stinfff);
+            foreach (string s in w)
+            {
+                Console.WriteLine(s);
+            }
+            Console.ReadLine();
+
+
+        }
+        static string[] SplitWords(string s)
+        {
+            //
+            // Split on all non-word characters.
+            // ... Returns an array of all the words.
+            //
+            return Regex.Split(s, @"(\w)(\d+)(\w)(\d*\.?\d+)(\w\w)(\P{Sc}+)", RegexOptions.Compiled);
+            // @      special verbatim string syntax
+            // \W+    one or more non-word characters together
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            List<string[]> lst = new List<string[]>();
+            textBox20.Text = richTextBox1.Lines[1].ToString();
+            string currsar = "";
+
+            
+           
+                
+           
+            
         }
     }
 }
